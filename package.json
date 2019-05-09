@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/roers1/tentamenP4/issues"
   },
-  "homepage": "https://github.com/roers1/tentamenP4#readme"
+  "homepage": "https://github.com/roers1/tentamenP4#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
