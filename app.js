@@ -10,4 +10,10 @@ app.all('*', (req, res, next) => {
     next();
   })
 
+  app.use((req,res,next)=>{
+      res.status(200).json({
+          message: 'Server booted'
+      });
+  });
+
   module.exports = app;
