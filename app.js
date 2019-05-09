@@ -3,6 +3,8 @@ const app = express();
 const config = require('./config/config');
 const logger = config.logger;
 
+//routes deffinieren voor de app
+const appartmentsRoute = require('./routes/appartments');
 
 //vastleggen welke routes er opgevraagd worden dmv de logger te gebruiker
 app.all('*', (req, res, next) => {
@@ -10,10 +12,8 @@ app.all('*', (req, res, next) => {
     next();
   })
 
-  app.use((req,res,next)=>{
-      res.status(200).json({
-          message: 'Server booted'
-      });
-  });
+
+  //routes bepalen en doorlinken naar het juiste route bestand
+app.use('/api/appartments', appartmentsRoute)
 
   module.exports = app;
