@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/roers1/tentamenP4#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "tracer": "^0.9.8"
   }
