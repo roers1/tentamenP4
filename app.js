@@ -5,6 +5,7 @@ const logger = config.logger;
 
 //routes deffinieren voor de app
 const appartmentsRoute = require('./routes/appartments');
+const reservationsRoute = require('./routes/reservations');
 
 //vastleggen welke routes er opgevraagd worden dmv de logger te gebruiker
 app.all('*', (req, res, next) => {
@@ -15,6 +16,7 @@ app.all('*', (req, res, next) => {
 
 //routes bepalen en doorlinken naar het juiste route bestand
 app.use('/api/appartments', appartmentsRoute)
+app.use('/api/appartments/:id/reservations', reservationsRoute)
 
 app.use('*', (req, res, next) => {
     const error = new Error('Route not found');
