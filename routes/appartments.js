@@ -3,13 +3,34 @@ const router = express.Router();
 const config = require('../config/config');
 const logger = config.logger;
 
-router.get('/api/appartments')
+router.get('/',(req,res,next)=>{
+    res.status(200).json({
+        message: 'GET request naar /api/appartments'
+    })
+})
 
-router.post('/api/appartments')
+router.post('/',(req,res,next)=>{
+    res.status(200).json({
+        message: 'POST request naar /api/appartments'
+    })
+})
 
-router.get('/api/appartments/:id')
+router.get('/:id',(req,res,next)=>{
+    res.status(200).json({
+        message: 'GET request naar /api/appartments/:id'
+    })
+})
 
-router.put('/api/appartments/:id')
+router.put('/:id',(req,res,next)=>{
+    res.status(200).json({
+        message: 'PUT request naar /api/appartments/:id'
+    })
+})
 
-router.delete('/api/appartments/:id')
+router.delete('/:id',(req,res,next)=>{
+    res.status(200).json({
+        message: 'DELETE request naar /api/appartments/:id'
+    })
+})
 
+module.exports = router;
