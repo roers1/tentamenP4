@@ -13,7 +13,7 @@ app.all('*', (req, res, next) => {
   })
 
 
-  //routes bepalen en doorlinken naar het juiste route bestand
+//routes bepalen en doorlinken naar het juiste route bestand
 app.use('/api/appartments', appartmentsRoute)
 
 app.use('*', (req, res, next) => {
