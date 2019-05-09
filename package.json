@@ -1,0 +1,19 @@
+{
+  "name": "eindopdracht",
+  "version": "1.0.0",
+  "description": "Eindopdracht Programmeren 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roers1/tentamenP4.git"
+  },
+  "author": "Ruben van Oers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roers1/tentamenP4/issues"
+  },
+  "homepage": "https://github.com/roers1/tentamenP4#readme"
+}
