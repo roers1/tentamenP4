@@ -7,7 +7,7 @@ module.exports = {
 
     dbConfig: {
       server: 'localhost\\MSSQLSERVER',
-      database: 'movieApplication',
+      database: 'Prog4-Eindopdracht1',
       user: 'sa',
       password: 'WwvSQL123',
       port: 1433,
