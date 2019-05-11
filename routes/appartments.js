@@ -126,4 +126,55 @@ router.delete('/:id', (req, res, next) => {
     })
 })
 
+router.put('/:id', (req, res, next) => {
+    
+    const apartmentId = req.params.id;
+
+    try {
+
+        assert.ok(typeof req.body.Description === "string", "Description is not a string!");
+        assert.ok(typeof req.body.StreetAddress === "string", "StreetAddress is not a string!");
+        assert.ok(typeof req.body.PostalCode === "string", "PostalCode is not a string!");
+        assert.ok(typeof req.body.City === "string", "City is not a string!");
+
+        const appartment = new Appartment(
+            req.body.Description,
+            req.body.StreetAddress,
+            req.body.PostalCode,
+            req.body.City,
+        )
+
+        const query = ("UPDATE Apartment SET " +
+            "Description = '" + appartment.Description + "\'," +
+            "StreetAddress = '" + appartment.StreetAddress + "\'," +
+            "PostalCode = '" + appartment.PostalCode + "\'," +
+            "City = '" + appartment.City + "\' " +
+            "WHERE ApartmentId = " + apartmentId + ";")
+
+        logger.info('query: ' + query)
+
+        database.executeQuery(query, (err, rows) => {
+            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
+            if (err) {
+                const error = {
+                    message: err,
+                    code: 500
+                }
+                next(error)
+            }
+
+            //Als er geen error is worden de rijen getoont die uit de query volgen
+            if (rows) {
+                res.status(200).json({
+                    result: rows
+                })
+            }
+        })
+
+    } catch (ex) {
+        next(ex);
+    }
+
+})
+
 module.exports = router;
