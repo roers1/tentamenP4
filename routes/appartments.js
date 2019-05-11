@@ -120,14 +120,8 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-router.delete('/:id', (req, res, next) => {
-    res.status(200).json({
-        message: 'DELETE request naar /api/appartments/:id'
-    })
-})
-
 router.put('/:id', (req, res, next) => {
-    
+
     const apartmentId = req.params.id;
 
     try {
@@ -174,6 +168,36 @@ router.put('/:id', (req, res, next) => {
     } catch (ex) {
         next(ex);
     }
+
+})
+
+router.delete('/:id', (req, res, next) => {
+
+    const apartmentId = req.params.id;
+
+    const query = ("DELETE FROM Apartment " +
+        "WHERE ApartmentId = " + apartmentId)
+
+    logger.info('query: ' + query)
+
+    database.executeQuery(query, (err, rows) => {
+        //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
+        if (err) {
+            const error = {
+                message: err,
+                code: 500
+            }
+            next(error)
+        }
+
+        //Als er geen error is worden de rijen getoont die uit de query volgen
+        if (rows) {
+            res.status(200).json({
+                result: rows
+            })
+        }
+    })
+
 
 })
 
