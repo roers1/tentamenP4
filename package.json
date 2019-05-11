@@ -4,6 +4,7 @@
   "description": "Eindopdracht Programmeren 4",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +24,8 @@
     "express": "^4.16.4",
     "mssql": "^5.1.0",
     "tracer": "^0.9.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }

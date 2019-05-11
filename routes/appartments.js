@@ -3,7 +3,7 @@ const router = express.Router();
 const config = require('../config/config');
 const logger = config.logger;
 const assert = require('assert')
-const appartment = require('../models/appartment')
+var appartment = require('../models/appartment')
 
 var database = require('../mssql_connection')
 
@@ -40,14 +40,14 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     try {
-        console.log('loggin description: ' + req.body.Description)
+
         assert.ok(typeof req.body.Description === "string", "Description is not a string!");
         assert.ok(typeof req.body.StreetAddress === "string", "StreetAddress is not a string!");
         assert.ok(typeof req.body.PostalCode === "string", "PostalCode is not a string!");
         assert.ok(typeof req.body.City === "string", "City is not a string!");
-        assert.ok(typeof req.body.UserId === "int", "UserId is not a int!");
+        assert.ok(typeof req.body.UserId === "number", "UserId is not a number!");
 
-        const appartment = new Appartment(
+        appartment = new Appartment(
             req.body.Description,
             req.body.StreetAddress,
             req.body.PostalCode,
