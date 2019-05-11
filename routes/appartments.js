@@ -3,7 +3,7 @@ const router = express.Router();
 const config = require('../config/config');
 const logger = config.logger;
 const assert = require('assert')
-var appartment = require('../models/appartment')
+const Appartment = require('../models/appartment')
 
 var database = require('../mssql_connection')
 
@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
         assert.ok(typeof req.body.City === "string", "City is not a string!");
         assert.ok(typeof req.body.UserId === "number", "UserId is not a number!");
 
-        appartment = new Appartment(
+        const appartment = new Appartment(
             req.body.Description,
             req.body.StreetAddress,
             req.body.PostalCode,
@@ -55,12 +55,14 @@ router.post('/', (req, res, next) => {
             req.body.UserId
         )
 
-        const query = ('INSERT INTO Apartment VALUES (' +
-            appartment.Description + ", " +
-            appartment.StreetAddress + ", " +
-            appartment.PostalCode + ", " +
-            appartment.City + ", " +
+        const query = ("INSERT INTO Apartment VALUES (\'" +
+            appartment.Description + "\', \'" +
+            appartment.StreetAddress + "\', \'" +
+            appartment.PostalCode + "\', \'" +
+            appartment.City + "\', " +
             appartment.UserId + ");")
+
+        logger.info('query: ' + query)
 
         database.executeQuery(query, (err, rows) => {
             //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker

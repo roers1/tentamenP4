@@ -8,3 +8,5 @@ class Reservation{
         this.UserId = UserId;
     }
 }
+
+module.exports = Reservation;
