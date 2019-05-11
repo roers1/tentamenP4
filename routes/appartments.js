@@ -4,6 +4,11 @@ const config = require('../config/config');
 const logger = config.logger;
 
 router.get('/',(req,res,next)=>{
+
+    //SELECT * FROM Apartment
+    //JOIN Reservation ON Apartment.ApartmentId = Reservation.ApartmentId
+    //WHERE [Status] = 'ACCEPTED';
+    
     res.status(200).json({
         message: 'GET request naar /api/appartments'
     })
