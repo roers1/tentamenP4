@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const config = require('./config/config');
+const bodyParser = require('body-parser');
 const logger = config.logger;
 
 //routes deffinieren voor de app
@@ -13,7 +14,12 @@ app.all('*', (req, res, next) => {
     next();
   })
 
-
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }))
+  
+  app.use(bodyParser.json());
+  
 //routes bepalen en doorlinken naar het juiste route bestand
 app.use('/api/appartments', appartmentsRoute)
 app.use('/api/appartments/:id/reservations', reservationsRoute)

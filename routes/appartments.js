@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
         assert.ok(typeof req.body.StreetAddress === "string", "StreetAddress is not a string!");
         assert.ok(typeof req.body.PostalCode === "string", "PostalCode is not a string!");
         assert.ok(typeof req.body.City === "string", "City is not a string!");
-        assert.ok(typeof req.body.UserId === "int", "description is not a int!");
+        assert.ok(typeof req.body.UserId === "int", "UserId is not a int!");
 
         const appartment = new Appartment(
             req.body.Description,
