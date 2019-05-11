@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const config = require('../config/config');
 const logger = config.logger;
+const assert = require('assert')
+const appartment = require('../models/appartment')
 
 var database = require('../mssql_connection')
 
@@ -33,11 +35,55 @@ router.get('/', (req, res, next) => {
             })
         }
     })
+
 })
 
 router.post('/', (req, res, next) => {
+    try {
+        console.log('loggin description: ' + req.body.Description)
+        assert.ok(typeof req.body.Description === "string", "Description is not a string!");
+        assert.ok(typeof req.body.StreetAddress === "string", "StreetAddress is not a string!");
+        assert.ok(typeof req.body.PostalCode === "string", "PostalCode is not a string!");
+        assert.ok(typeof req.body.City === "string", "City is not a string!");
+        assert.ok(typeof req.body.UserId === "int", "description is not a int!");
 
-    
+        const appartment = new Appartment(
+            req.body.Description,
+            req.body.StreetAddress,
+            req.body.PostalCode,
+            req.body.City,
+            req.body.UserId
+        )
+
+        const query = ('INSERT INTO Apartment VALUES (' +
+            appartment.Description + ", " +
+            appartment.StreetAddress + ", " +
+            appartment.PostalCode + ", " +
+            appartment.City + ", " +
+            appartment.UserId + ");")
+
+        database.executeQuery(query, (err, rows) => {
+            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
+            if (err) {
+                const error = {
+                    message: err,
+                    code: 500
+                }
+                next(error)
+            }
+
+            //Als er geen error is worden de rijen getoont die uit de query volgen
+            if (rows) {
+                res.status(200).json({
+                    result: rows
+                })
+            }
+        })
+
+    } catch (ex) {
+        next(ex);
+    }
+
 })
 
 router.get('/:id', (req, res, next) => {
