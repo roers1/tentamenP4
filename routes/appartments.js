@@ -18,23 +18,7 @@ router.get('/', (req, res, next) => {
 
     logger.info('Used query is:' + query);
 
-    database.executeQuery(query, (err, rows) => {
-        //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
-        if (err) {
-            const error = {
-                message: err,
-                code: 500
-            }
-            next(error)
-        }
-
-        //Als er geen error is worden de rijen getoont die uit de query volgen
-        if (rows) {
-            res.status(200).json({
-                result: rows
-            })
-        }
-    })
+    executeQuery(query, req, res, next)
 
 })
 
@@ -64,23 +48,7 @@ router.post('/', (req, res, next) => {
 
         logger.info('query: ' + query)
 
-        database.executeQuery(query, (err, rows) => {
-            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
-            if (err) {
-                const error = {
-                    message: err,
-                    code: 500
-                }
-                next(error)
-            }
-
-            //Als er geen error is worden de rijen getoont die uit de query volgen
-            if (rows) {
-                res.status(200).json({
-                    result: rows
-                })
-            }
-        })
+        executeQuery(query, req, res, next)
 
     } catch (ex) {
         next(ex);
@@ -101,23 +69,7 @@ router.get('/:id', (req, res, next) => {
 
     logger.info('Used query is:' + query);
 
-    database.executeQuery(query, (err, rows) => {
-        //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
-        if (err) {
-            const error = {
-                message: err,
-                code: 500
-            }
-            next(error)
-        }
-
-        //Als er geen error is worden de rijen getoont die uit de query volgen
-        if (rows) {
-            res.status(200).json({
-                result: rows
-            })
-        }
-    })
+    executeQuery(query, req, res, next)
 })
 
 router.put('/:id', (req, res, next) => {
@@ -147,23 +99,7 @@ router.put('/:id', (req, res, next) => {
 
         logger.info('query: ' + query)
 
-        database.executeQuery(query, (err, rows) => {
-            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
-            if (err) {
-                const error = {
-                    message: err,
-                    code: 500
-                }
-                next(error)
-            }
-
-            //Als er geen error is worden de rijen getoont die uit de query volgen
-            if (rows) {
-                res.status(200).json({
-                    result: rows
-                })
-            }
-        })
+        executeQuery(query, req, res, next)
 
     } catch (ex) {
         next(ex);
@@ -179,6 +115,12 @@ router.delete('/:id', (req, res, next) => {
         "WHERE ApartmentId = " + apartmentId)
 
     logger.info('query: ' + query)
+
+    executeQuery(query, req, res, next)
+
+})
+
+function executeQuery(query, req, res, next){
 
     database.executeQuery(query, (err, rows) => {
         //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
@@ -198,7 +140,6 @@ router.delete('/:id', (req, res, next) => {
         }
     })
 
-
-})
+}
 
 module.exports = router;
