@@ -85,8 +85,8 @@ function executeQuery(query, req, res, next) {
 
         //Als er geen error is worden de rijen getoont die uit de query volgen
         if (rows) {
-            res.status(200).json({
-                result: rows
+            res.status(201).json({
+                message: 'User created'
             })
         }
     })

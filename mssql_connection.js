@@ -21,7 +21,7 @@ function executeQuery(query, callback) {
       if (err) {
         logger.error('error', err);
         callback(err, null, null)
-      }
+      } else
 
       //recordset.recordset is van toepassing op GET functies
       //recordset.rowsaffected is van toepassing op INSERT, UPDATE, DELETE functies
