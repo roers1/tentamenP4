@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
         if (payload && payload.userId) {
             logger.debug('token is valid', payload)
 
-            req.userId = payload.userId;
+            req.UserId = payload.userId;
             logger.debug(req.userId)
             next()
         } else {

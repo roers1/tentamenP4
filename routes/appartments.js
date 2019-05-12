@@ -23,21 +23,23 @@ router.get('/', checkAuth,(req, res, next) => {
 
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth,(req, res, next) => {
+
+    logger.info('Handling POST request to /api/appartments')
+    logger.info('body: ' +req.body)
     try {
 
         assert.ok(typeof req.body.Description === "string", "Description is not a string!");
         assert.ok(typeof req.body.StreetAddress === "string", "StreetAddress is not a string!");
         assert.ok(typeof req.body.PostalCode === "string", "PostalCode is not a string!");
         assert.ok(typeof req.body.City === "string", "City is not a string!");
-        assert.ok(typeof req.body.UserId === "number", "UserId is not a number!");
 
         const appartment = new Appartment(
             req.body.Description,
             req.body.StreetAddress,
             req.body.PostalCode,
             req.body.City,
-            req.body.UserId
+            req.UserId
         )
 
         const query = ("INSERT INTO Apartment VALUES (\'" +
@@ -57,7 +59,7 @@ router.post('/', (req, res, next) => {
 
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id',checkAuth, (req, res, next) => {
     logger.info('Handling GET request to /api/appartments')
 
     const apartmentId = req.params.id;
@@ -108,7 +110,7 @@ router.put('/:id', (req, res, next) => {
 
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id',checkAuth, (req, res, next) => {
 
     const apartmentId = req.params.id;
 
