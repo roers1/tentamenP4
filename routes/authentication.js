@@ -5,6 +5,7 @@ const User = require("../models/User");
 const database = require("../mssql_connection");
 const bcrypt = require('bcrypt');
 const config = require('../config/config');
+const jwt = require('jsonwebtoken')
 const logger = config.logger;
 
 router.post('/register', (req, res, next) => {
@@ -106,8 +107,15 @@ router.post('/login', (req, res, next) => {
             }
 
             if (result) {
+                const token = jwt.sign({
+                    userId: rows.recordset[0].UserId,
+                    EmailAddress: rows.recordset[0].EmailAddress
+                }, 'secret', {
+                    expiresIn:"1h"
+                })
                 return res.status(200).json({
-                    message: 'Login succesfull'
+                    message: 'Login succesfull',
+                    token: token
                 })
             }
 
