@@ -9,51 +9,49 @@ const checkAuth = require('../middleware/check-auth')
 var database = require('../mssql_connection')
 
 module.exports = {
-    postReservation:function(req,res,next){
-    logger.debug('APPARTMENTID: ' + req.params.id)
-    const appartmentId = req.params.id
-    logger.info('Handling POST request to /api/reservations')
-    logger.info('body: ' +req.body)
+    postReservation: function (req, res, next) {
+        logger.debug('APPARTMENTID: ' + req.params.id)
+        const appartmentId = req.params.id
+        logger.info('Handling POST request to /api/reservations')
+        logger.info('body: ' + req.body)
 
-    try {
-        assert.ok(typeof req.body.StartDate === "string", "StartDate is not a string!");
-        assert.ok(typeof req.body.EndDate === "string", "EndDate is not a string!");
+        try {
+            assert.ok(typeof req.body.StartDate === "string", "StartDate is not a string!");
+            assert.ok(typeof req.body.EndDate === "string", "EndDate is not a string!");
 
-        const reservations = new Reservation(
-            req.body.ApartmentId,
-            req.body.StartDate,
-            req.body.EndDate
-        )
+            const reservations = new Reservation(
+                req.body.ApartmentId,
+                req.body.StartDate,
+                req.body.EndDate
+            )
 
-        const query = ("INSERT INTO Reservation VALUES (" +
-            appartmentId + ", \'" +
-            reservations.StartDate + "\', \'" +
-            reservations.EndDate + "\', \'" +
-            'INITIAL' + "\', " +
-            req.UserId + ");")
+            const query = ("INSERT INTO Reservation VALUES (" +
+                appartmentId + ", \'" +
+                reservations.StartDate + "\', \'" +
+                reservations.EndDate + "\', \'" +
+                'INITIAL' + "\', " +
+                req.UserId + ");")
 
-        logger.info('query: ' + query)
+            logger.info('query: ' + query)
 
-        database.executeQuery(query, (err, rows) => {
-            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
-            if (err) {
-                const error = {
-                    message: err,
-                    code: 500
+            database.executeQuery(query, (err, rows) => {
+                //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
+                if (err) {
+                    res.status(404).json({
+                        message: 'Appartment does not exist'
+                    })
                 }
-                next(error)
-            }
-    
-            //Als er geen error is worden de rijen getoont die uit de query volgen
-            if (rows) {
-                res.status(200).json({
-                    result: rows
-                })
-            }
-        })
 
-    } catch (ex) {
-        next(ex);
+                //Als er geen error is worden de rijen getoont die uit de query volgen
+                if (rows) {
+                    res.status(200).json({
+                        message: 'Reservation succesfull'
+                    })
+                }
+            })
+
+        } catch (ex) {
+            next(ex);
+        }
     }
-}
 }
