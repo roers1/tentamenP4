@@ -17,7 +17,7 @@ function executeQuery(query, callback) {
       return;
     }
 
-    req.query(query, (err, recordset) => {
+    req.query(query, (err, result) => {
       if (err) {
         logger.error('error', err);
         callback(err, null, null)
@@ -25,13 +25,10 @@ function executeQuery(query, callback) {
 
       //recordset.recordset is van toepassing op GET functies
       //recordset.rowsaffected is van toepassing op INSERT, UPDATE, DELETE functies
-      if (recordset.recordset) {
-        logger.info(recordset);
-        callback(null, recordset.recordset)
-      } else {
-        logger.info(recordset.rowsAffected);
-        callback(null, recordset.rowsAffected)
-      }
+      if (result) {
+        logger.info(result);
+        callback(null, result)
+      } 
       conn.close();
     })
   })

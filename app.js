@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const logger = config.logger;
 
 //routes deffinieren voor de app
-const registerRoute = require('./routes/authentication');
+const authenticationRoute = require('./routes/authentication');
 const appartmentsRoute = require('./routes/appartments');
 const reservationsRoute = require('./routes/reservations');
 
@@ -22,7 +22,7 @@ app.all('*', (req, res, next) => {
   app.use(bodyParser.json());
   
 //routes bepalen en doorlinken naar het juiste route bestand
-app.use('/api/register', registerRoute)
+app.use('/api/auth', authenticationRoute)
 app.use('/api/appartments', appartmentsRoute)
 app.use('/api/appartments/:id/reservations', reservationsRoute)
 
