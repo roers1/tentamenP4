@@ -4,10 +4,11 @@ const config = require('../config/config');
 const logger = config.logger;
 const assert = require('assert')
 const Appartment = require('../models/appartment')
+const checkAuth = require('../middleware/check-auth')
 
 var database = require('../mssql_connection')
 
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth,(req, res, next) => {
     logger.info('Handling GET request to /api/appartments')
 
     //Query welke uitgevoerd gaat worden door de database
