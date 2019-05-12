@@ -23,10 +23,10 @@ class User{
 
     validatePostalCode(PostalCode){
         const regex = /(^[1-9][0-9]{3})([\s]?)((?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2})$/
-    if (regex.test(postcode)) {
-      return postcode;
+    if (regex.test(PostalCode)) {
+      return PostalCode;
     } else {
-      throw new Error("Invalid postcode: " + postcode.substring(0, 50))
+      throw new Error("Invalid PostalCode: " + PostalCode.substring(0, 50))
     }
     }
 
