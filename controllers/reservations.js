@@ -82,5 +82,49 @@ module.exports = {
                 })
             }
         })
+    },
+
+    getReservation: function(req,res,next){
+        logger.info('Handling GET request to /api/appartments/:id/reservations')
+
+        const apartmentId = req.params.id;
+        const reservationId = req.params.id;
+
+        //Query welke uitgevoerd gaat worden door de database
+        const query = ('SELECT * FROM Reservation' +
+        ' WHERE ApartmentId = ' + apartmentId + 
+        ' AND ReservationId = ' + reservationId)
+
+        logger.info('Used query is:' + query);
+
+        database.executeQuery(query, (err, rows) => {
+            //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
+            if (err) {
+                const error = {
+                    message: err,
+                    code: 500
+                }
+                next(error)
+            }
+
+            //Als er geen error is worden de rijen getoont die uit de query volgen
+            if (rows) {
+                res.status(200).json({
+                    result: rows
+                })
+            }
+        })
+    },
+
+    putReservation:function(req,res,next){
+
+    },
+
+    deleteReservation:function(req,res,next){
+
     }
+
+
+
+    
 }

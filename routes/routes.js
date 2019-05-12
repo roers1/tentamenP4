@@ -18,8 +18,8 @@ router.put('/appartments/:id', checkAuth, appartments.putAppartment)
 router.delete('/appartments/:id', checkAuth, appartments.deleteAppartment)
 router.post('/appartments/:id/reservations', checkAuth, reservations.postReservation)
 router.get('/appartments/:id/reservations', checkAuth, reservations.getReservations)
-router.get('/appartments/:id/reservations:id', checkAuth, )
-router.put('/appartments/:id/reservations:id', checkAuth, )
-router.delete('/appartments/:id/reservations:id', checkAuth, )
+router.get('/appartments/:id/reservations/:id', checkAuth, reservations.getReservation)
+router.put('/appartments/:id/reservations/:id', checkAuth, reservations.putReservation)
+router.delete('/appartments/:id/reservations/:id', checkAuth, reservations.deleteReservation)
 
 module.exports = router
