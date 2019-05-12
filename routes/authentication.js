@@ -81,7 +81,7 @@ router.post('/login', (req, res, next) => {
 
     logger.info('Used query is:' + query);
 
-    database.executeQuery(query, (err, rows) =>{
+    database.executeQuery(query, (err, rows) => {
 
         //Als de database een error verstuurd zal de error doorgegeven worden naar de gebruiker
         if (err) {
@@ -92,24 +92,25 @@ router.post('/login', (req, res, next) => {
             next(error)
         }
 
-        if (rows<1){
+        if (rows < 1) {
             return res.status(401).json({
                 message: 'Login failed'
             })
         }
 
-        bcrypt.compare(req.body.Password, rows.recordset[0].Password, (err, result)=>{
-            if (err){
+        bcrypt.compare(req.body.Password, rows.recordset[0].Password, (err, result) => {
+            if (err) {
                 return res.status(401).json({
                     message: 'U heeft geen consent om deze corpus te benaderen en marcheert daardoor averechts tegen de autorisatie en stellingname van de applicatie in',
                 })
             }
-            if(result){
+
+            if (result) {
                 return res.status(200).json({
                     message: 'Login succesfull'
                 })
             }
-            
+
             return res.status(401).json({
                 message: 'U heeft geen consent om deze corpus te benaderen en marcheert daardoor averechts tegen de autorisatie en stellingname van de applicatie in'
             })
@@ -143,7 +144,7 @@ function executeQuery(query, req, res, next) {
         //Als er geen error is worden de rijen getoont die uit de query volgen
         if (rows) {
             res.status(201).json({
-                message: rows 
+                message: rows
             })
         }
     })
