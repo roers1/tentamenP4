@@ -4,10 +4,7 @@ const config = require('./config/config');
 const bodyParser = require('body-parser');
 const logger = config.logger;
 
-//routes deffinieren voor de app
-const authenticationRoute = require('./routes/authentication');
-const appartmentsRoute = require('./routes/appartments');
-const reservationsRoute = require('./routes/reservations');
+const routes = require('./routes/routes')
 
 //vastleggen welke routes er opgevraagd worden dmv de logger te gebruiker
 app.all('*', (req, res, next) => {
@@ -22,9 +19,7 @@ app.all('*', (req, res, next) => {
   app.use(bodyParser.json());
   
 //routes bepalen en doorlinken naar het juiste route bestand
-app.use('/api/auth', authenticationRoute)
-app.use('/api/appartments', appartmentsRoute)
-app.use('/api/appartments/:id/reservations', reservationsRoute)
+app.use('/api', routes)
 
 app.use('*', (req, res, next) => {
     const error = new Error('Route not found');
