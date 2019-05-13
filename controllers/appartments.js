@@ -9,7 +9,7 @@ const checkAuth = require('../middleware/check-auth')
 var database = require('../mssql_connection')
 
 module.exports = {
-    
+
     getAppartments: function (req, res, next) {
         logger.info('Handling GET request to /api/appartments')
 

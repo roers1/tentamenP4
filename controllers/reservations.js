@@ -117,7 +117,7 @@ module.exports = {
     },
 
     putReservation:function(req,res,next){
-
+    
     },
 
     deleteReservation:function(req,res,next){
